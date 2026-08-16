@@ -13,9 +13,9 @@
 
 # 📖 Project Overview
 
-This project is an end-to-end **MLOps pipeline** for detecting fraudulent financial transactions in real time — combining machine learning, explainable AI, and automated deployment into a live, interactive risk-monitoring dashboard.
+This project is an end-to-end **MLOps pipeline** for detecting fraudulent financial transactions in real time combining machine learning, explainable AI, and automated deployment into a live, interactive risk-monitoring dashboard. This project simulates a production-grade fraud detection system used by financial institutions to flag suspicious transactions in real time, while providing **explainable, audit-ready reasoning** behind every decision a critical requirement in risk management and regulatory compliance contexts.
 
-The objective is to apply **Machine Learning**, **Risk Management**, and **Automation** together the way a real fintech risk team would: not just training a model, but engineering the full pipeline around it — imbalance handling, model comparison, explainability for audit purposes, containerized deployment, and CI/CD automation.
+The pipeline covers the full lifecycle: data engineering → model training → explainability → live dashboard → containerization → automated CI/CD.
 
 This project includes:
 
@@ -76,9 +76,9 @@ The dataset was cleaned, deduplicated, and scaled before modeling.
 
 ### 🔍 SHAP Explanation Panel
 
-![SHAP Explanation](images/SHAP_Explaination.png)
+![SHAP Explanation](images/SHAP_Explaination.png) 
 
-Each flagged transaction gets a live SHAP waterfall breakdown showing exactly which features pushed the model toward a fraud prediction — critical for audit-ready, regulator-facing decisions in a real risk-management context.
+Each flagged transaction gets a live SHAP waterfall breakdown showing exactly which features pushed the model toward a fraud prediction critical for audit-ready, regulator-facing decisions in a real risk-management context.
 
 ---
 
@@ -93,11 +93,11 @@ Each flagged transaction gets a live SHAP waterfall breakdown showing exactly wh
 | Logistic Regression (Baseline) | 0.672 | 0.966 |
 | Isolation Forest (Unsupervised) | 0.087 | 0.940 |
 
-**Precision-Recall AUC** was used as the primary metric instead of accuracy or plain ROC-AUC — at a 0.17% fraud rate, a model predicting "no fraud" for every transaction would score 99.8% accuracy while catching zero fraud.
+**Precision-Recall AUC** was used as the primary metric instead of accuracy or plain ROC-AUC at a 0.17% fraud rate, a model predicting "no fraud" for every transaction would score 99.8% accuracy while catching zero fraud.
 
-**Key finding:** XGBoost with native class weighting (`scale_pos_weight`) outperformed XGBoost + SMOTE — synthetic oversampling slightly diluted the decision boundary compared to XGBoost's built-in weighting. This was tested empirically, not assumed.
+**Key finding:** XGBoost with native class weighting (`scale_pos_weight`) outperformed XGBoost + SMOTE synthetic oversampling slightly diluted the decision boundary compared to XGBoost's built-in weighting. This was tested empirically, not assumed.
 
-Isolation Forest's low PR-AUC is expected by design — its value isn't beating supervised models, it's providing a label-free detection layer capable of catching **novel** fraud patterns a historically-trained model has never seen.
+Isolation Forest's low PR-AUC is expected by design its value isn't beating supervised models, it's providing a label-free detection layer capable of catching **novel** fraud patterns a historically-trained model has never seen.
 
 ---
 
@@ -112,16 +112,16 @@ Top predictive features by mean absolute SHAP value: **V14, V4, V12, V11, V10**
 ## 📌 Key Findings
 
 - XGBoost with class weighting outperformed SMOTE-based resampling on this dataset.
-- Precision-Recall AUC was essential — standard accuracy would have been meaningless given the 0.17% fraud rate.
+- Precision-Recall AUC was essential standard accuracy would have been meaningless given the 0.17% fraud rate.
 - SHAP explainability revealed a small set of anonymized PCA components (V14, V4, V12) drive most fraud predictions.
-- A genuine false negative was found during live streaming testing: transaction `58761` was actual fraud, but the model predicted only a **0.01%** fraud probability — a confident miss. This shows some fraud cases closely resemble legitimate transactions in PCA-transformed feature space, a real limitation worth documenting rather than hiding.
+- A genuine false negative was found during live streaming testing: transaction `58761` was actual fraud, but the model predicted only a **0.01%** fraud probability a confident miss. This shows some fraud cases closely resemble legitimate transactions in PCA-transformed feature space, a real limitation worth documenting rather than hiding.
 - Isolation Forest, despite lower PR-AUC, adds genuine value as an unsupervised, label-free detection layer for novel fraud patterns.
 
 ---
 
 ## 💡 Recommendations
 
-- In production, the risk threshold (currently 0.5 in the dashboard) should be tuned against a real cost matrix — the cost of missing fraud (false negative) is typically far higher than a false alarm (false positive).
+- In production, the risk threshold (currently 0.5 in the dashboard) should be tuned against a real cost matrix the cost of missing fraud (false negative) is typically far higher than a false alarm (false positive).
 - SHAP-based explanations should be included in any regulator- or auditor-facing fraud system, not just as a nice-to-have.
 - Isolation Forest or similar unsupervised methods should run alongside supervised models in production, since fraud patterns evolve and labeled training data always lags behind new fraud tactics.
 
@@ -143,8 +143,8 @@ fraud-detection-pipeline/
 ├── dashboard/
 │   └── app.py               # Streamlit real-time dashboard
 ├── data/
-│   ├── creditcard.csv.zip   # Compressed dataset
-│   └── README.md            # Dataset setup instructions
+│   └── creditcard.csv.zip   # Compressed dataset
+│   
 ├── images/                  # Screenshots used in this README
 ├── notebooks/
 │   └── Automated_Financial_Fraud.ipynb   # Full training & evaluation notebook
@@ -198,8 +198,8 @@ docker run -p 8501:8501 fraud-detection-dashboard
 
 Every push to `main` automatically triggers:
 
-1. **`validate`** — installs pinned dependencies, checks the dashboard compiles cleanly, confirms all model artifacts exist
-2. **`docker-build`** — builds the Docker image from a clean environment to catch integration issues before they reach production
+1. **`validate`** installs pinned dependencies, checks the dashboard compiles cleanly, confirms all model artifacts exist
+2. **`docker-build`** builds the Docker image from a clean environment to catch integration issues before they reach production
 
 See [`.github/workflows/ci-cd.yml`](.github/workflows/ci-cd.yml).
 
