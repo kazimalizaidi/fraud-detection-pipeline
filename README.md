@@ -13,7 +13,7 @@
 
 # 📖 Project Overview
 
-This project delivers an end-to-end **MLOps** pipeline for detecting fraudulent financial transactions in real time. By combining machine learning, explainable AI, and automated deployment, it simulates a production-grade system used by financial institutions to flag suspicious activity. Crucially, the pipeline provides audit-ready reasoning behind every decision—a critical requirement for modern risk management and regulatory compliance.
+This project delivers an end-to-end **MLOps** pipeline for detecting fraudulent financial transactions in real time. By combining machine learning, explainable AI, and automated deployment, it simulates a production-grade system used by financial institutions to flag suspicious activity. Crucially, the pipeline provides audit-ready reasoning behind every decision a critical requirement for modern risk management and regulatory compliance.
 
 The pipeline covers the full lifecycle: data engineering → model training → explainability → live dashboard → containerization → automated CI/CD.
 
