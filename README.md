@@ -64,15 +64,7 @@ The dataset was cleaned, deduplicated, and scaled before modeling.
 
 ### 🛡️ Live Dashboard Overview
 
-![Dashboard Overview](images/Dashboard_1.png)
-
-### 📡 Live Transaction Feed
-
-![Live Transaction Feed](images/Dashboard_2.png)
-
-### 📈 Rolling Fraud Detection Rate
-
-![Rolling Fraud Rate](images/Dashboard_3.png)
+![Dashboard Overview](images/Dashboard_11.png)
 
 ### 🔍 SHAP Explanation Panel
 
