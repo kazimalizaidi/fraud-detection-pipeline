@@ -205,7 +205,6 @@ Potential enhancements include:
 - Cost-sensitive threshold tuning based on a real fraud-cost matrix
 - Live data ingestion via Kafka or a message queue instead of a simulated stream
 - Model monitoring for data/concept drift over time
-- Deployment to Streamlit Community Cloud or Hugging Face Spaces for a public live demo link
 - A/B comparison of newer boosting frameworks (LightGBM, CatBoost) against the current XGBoost champion
 
 ---
